@@ -1,0 +1,115 @@
+<head>
+  <title>meteor</title>
+</head>
+
+<body>
+  <div class="container">
+  <h1>Welcome to Meteor!</h1>
+
+  {{> sessionControlPanel}}
+
+  {{> teamConfiguration}}
+  <hr>
+
+  {{> liveSummary}}
+
+  <hr>
+  {{> draftSelection}}
+  </div>
+</body>
+
+<template name="sessionControlPanel">
+  <button class="start-game">Start Game</button>
+</template>
+
+<template name="liveSummary">
+  {{#each teams}}
+  <div class="team-summary">
+    {{> teamSummary}}
+  </div>
+  {{/each}}
+</template>
+
+<template name="teamConfiguration">
+  <h3>Enter player name:</h3>
+  <input type="text" id="playerName">
+  <br/>
+  <h3>Choose team color:</h3>
+  {{#each teamColors}}
+    <input type="radio" name="teamColor" value="{{this}}">{{this}}
+  {{/each}}
+  <button id="createTeam">Create</button>
+</template>  
+
+<template name="draftSelection">
+  <div class="draft-selection">
+    <div class="row">
+    {{#each availableUnits}}
+       <div class="col col-sm-3">
+        <a href="#" class="thumbnail">
+          <img src="{{rank}}.png"/>
+        </a>
+        {{name}}<br/>
+        {{> draftOptions}}
+        </div>
+    {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="draftOptions">
+  <button class="ban">Ban</button>
+  {{#each teams}}
+    {{> draftButton}}
+  {{/each}}
+</template>
+
+<template name="draftButton">
+  <button class="draftToTeam" style="color:{{color}}">{{name}}</button>
+</template>
+
+<template name="teamSummary">
+  {{name}}'s Team <button class="deleteTeam">Delete</button>
+
+  {{#each members}}
+    {{> unitSummary}}
+  {{/each}}
+</template>
+
+<template name="unitSummary">
+  <div class="{{#if isActive}}current-turn{{/if}}">
+    
+    <a href="#" class="thumbnail">
+        <img src="{{rank}}.png"/>
+      </a>
+    <strong>{{name}}</strong><br/>
+    {{> healthBar}}
+    {{> rareCandyBar}}
+    {{> editTeamMember}}
+    </div>
+</template>
+
+<template name="rareCandyBar">
+  <em>Rare Candy:</em> <strong>{{currentRareCandy}}</strong>
+  <button class="subtractRareCandy">-</button>
+  <button class="addRareCandy">+</button><br/>
+</template>
+
+<template name="healthBar">
+  <em>Health:</em> <strong>{{currentHealth}}/{{health}}</strong>
+  <button class="subtractHealth">-</button>
+  <button class="addHealth">+</button>
+  <br/>
+</template>
+
+<template name="editTeamMember">
+  {{#if isActive}}
+      CURRENT TURN
+      <button class="end-turn">End Turn</button>
+  {{/if}}
+</template>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>

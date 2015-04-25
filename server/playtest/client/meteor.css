@@ -1,0 +1,17 @@
+/* CSS declarations go here */
+.team-summary {
+  width: 500px;
+  float: left;
+}
+.draft-selection {
+  clear: both;
+}
+
+.col {
+  width: 200px;
+  float: left;
+}
+
+.current-turn .thumbnail {
+  border: 1px red solid;
+}
